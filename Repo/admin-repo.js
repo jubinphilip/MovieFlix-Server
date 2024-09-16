@@ -9,7 +9,7 @@ export const handleDeletion = async (id, res) => {
             return res.status(404).json({ message: 'Show not found' });
         }
         
-        res.json({ message: 'Show deleted successfully', deletedShow });
+        res.status(200).json({ message: 'Show deleted successfully', deletedShow });
     } catch (error) {
         res.status(500).json({ message: 'Failed to delete the show', error });
     }
@@ -23,6 +23,8 @@ export const handleNewMovie=async(req,res)=>{
 const actor_image = req.files['actor_image'] ? req.files['actor_image'][0].filename : null;
 const actress_image = req.files['actress_image'] ? req.files['actress_image'][0].filename : null;
 console.log(poster,actor_image,actress_image)
+try{
+
   //creating the movie model
   await movieModel.create({
       title,
@@ -42,4 +44,9 @@ console.log(poster,actor_image,actress_image)
       }
   })
   res.status(200).json({message:"Movie Updated"})
+    
+}
+catch(error){
+  res.status(500).json({message:"Failed to add movie",error})
+}
 }

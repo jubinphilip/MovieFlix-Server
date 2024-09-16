@@ -33,15 +33,24 @@ export const addMovies=async (req,res)=>{
 
 //function for getting movies
 export const getMovies=async(req,res)=>{
+    try{
     const movies=await movieModel.find({}).then((data)=>{
-        res.json(data)
+        res.status(200).json(data)
+        
     })
+}
+catch(err)
+{
+    console.log(err)
+}
 }
 
 //function for adding theatre
 export const addTheatre=async(req,res)=>{
     const{theatrename,theatreloc,ticketprice,seats,movie1,movie2,movie3}=req.body
     console.log(req.body)
+    try
+    {
     //creating model for theatre
     await theatreModel.create({
        theatrename,
@@ -54,14 +63,26 @@ export const addTheatre=async(req,res)=>{
         movie3
        }
     })
-    res.status(200).json({message:"Data inserted"})
+    res.status(200).json({message:"New thetre added"})
+}
+catch(error)
+{
+    res.status(400).json({message:"Unable to Insert Theatre"})
+}
 }
 
 //function for getting the theatre list
 export const getTheatre=async(req,res)=>{
+    try
+    {
     const movies=await theatreModel.find({}).then((data)=>{
         res.json(data)
     })
+}
+catch(error)
+{
+    console.log(error)
+}
 }
 
 //Function for editing the movies
@@ -69,11 +90,19 @@ export const editMovies=async(req,res)=>{
     const{theatrename,movie1,movie2,movie3}=req.body
     const theatre=theatreModel.find({theatrename})
     //finding the theatre with theatre name and then updating movies
+    try
+    {
     const updatedTheatre = await theatreModel.findOneAndUpdate(
         { theatrename }, // Query condition to find the theater by name
         { $set: { 'movies.movie1': movie1, 'movies.movie2': movie2, 'movies.movie3': movie3 } }, // Update operation
         { new: true, useFindAndModify: false } // Options: return the updated document
       );
+      res.status(200).json({message:"Data Edited"})
+    }
+    catch(error)
+    {
+        res.status(500).json({message:"Error Occured"})
+    }
 }
 
 //function for selecting the theatre and its running movies
@@ -103,6 +132,8 @@ export const addShows=async(req,res)=>
     const {movie_id,theatre_id,seats,timing,from_date,to_date}=req.body
     console.log(req.body)
     //creating model for shows
+    try
+    {
      showModel.create({
         theatre_id,
         seats,
@@ -112,6 +143,11 @@ export const addShows=async(req,res)=>
         movie_id
     })
     res.status(200).json({message:"Show Added"})
+}
+catch(error)
+{
+    res.status(500).json({message:"An error Occured"})
+}
 }
 
 
