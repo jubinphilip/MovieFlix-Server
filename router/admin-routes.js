@@ -25,7 +25,7 @@ const upload = multer({ storage: storage });
 adminrouter.route('/login').post(adminLogin)
 //Route for handling movies
 adminrouter.route('/addmovies').post(verifyToken('admin'),upload.fields([{ name: 'poster', maxCount: 1 },{ name: 'actor_image', maxCount: 1 },{ name: 'actress_image', maxCount: 1 }]),addMovies);
-adminrouter.route('/getmovies').get(verifyToken('admin'),getMovies)
+adminrouter.route('/getmovies').get(getMovies)
 adminrouter.route('/addtheatre').post(verifyToken('admin'),addTheatre)
 adminrouter.route('/gettheatre').get(verifyToken('admin'),getTheatre)
 adminrouter.route('/editmovies').post(verifyToken('admin'),editMovies)
