@@ -41,8 +41,7 @@ export const setToken = async(req,res) => {
         console.log(email)
         const data = await userModel.find({email:email})
         if(data.length>0) {
-            const token = createToken(data)
-            res.json({status:1,message:"User Logged in",token:token,username:data[0].username})
+            res.json({status:1,message:"User Logged in",username:data[0].username})
         } else {
             res.status(404).json({message: 'User not found'})
         }

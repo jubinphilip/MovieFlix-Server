@@ -15,6 +15,7 @@ main().catch(err => console.error('Database connection error:', err))
 export async function handleUser(data, res) {
     try {
         const { username, email, phone, password } = data;
+        //user is validated using joi package the details from client is passed to userValidation
         const { error } = userValidationSchema.validate({ username, email, phone, password });
 
         if (error) {
@@ -275,7 +276,7 @@ export async function  handleTickets(req,res) {
             .populate('userid','username phone')
         console.log(data[0])
         const qrcode=await generateQrcode(data[0])//the data is passed to generateQrcode for generating a qr code with tickt info
-        res.json({qrcode:qrcode})
+        res.status(200).json({qrcode:qrcode})
     } catch (err) {
         console.log("Error in handleTickets function", err);
         return res.status(500).json({ message: "Server error" });

@@ -1,7 +1,7 @@
 
 import express from 'express'
 const userrouter=express.Router()
-//const{userRegister,userLogin,setToken}=require('../control/control')
+
 import{userRegister,userLogin,setToken,getMovieInfo,getShowTheatres,getShow,setPayment,verifyPayment,addBooking,getSeats,getHistory,getTheatres,getTicket,getMovies} from '../control/user-control.js'
 import { verifyOtp } from '../utils/verify-otp.js'
 import { verifyToken } from '../utils/verifyToken.js'
