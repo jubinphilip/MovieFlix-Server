@@ -16,7 +16,7 @@ export const generateQrcode = async (bookingdetails) => {
     Movie: bookingdetails.movieid.title,
     Showtime: bookingdetails.showid.timing,
     Theatre: bookingdetails.theatreid.theatrename,
-    ticketprice: bookingdetails.theatreid.ticketprice,
+    ticketprice: bookingdetails.amount,
     Date: bookingdetails.booked_date,
     Seats: bookingdetails.bookedSeats,
   };
@@ -31,7 +31,7 @@ Here are your booking details:
 - Contact:${bookingdetails.userid.phone}
 - Theatre: ${bookingdetails.theatreid.theatrename}
 - Showtime: ${bookingdetails.showid.timing}
-- Ticket Price: ₹${bookingdetails.theatreid.ticketprice}
+- Ticket Price: ₹${bookingdetails.amount}
 - Booking Date: ${bookingdetails.booked_date}
 - Seats: ${bookingdetails.bookedSeats.join(", ")}
 
