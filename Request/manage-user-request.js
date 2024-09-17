@@ -1,6 +1,7 @@
 import Joi from 'joi';
 
 const userValidationSchema = Joi.object({
+  //Validation for username
   username: Joi.string()
     .alphanum()
     .min(3)
@@ -13,7 +14,7 @@ const userValidationSchema = Joi.object({
       'string.max': 'Username should have at most 30 characters',
       'any.required': 'Username is required'
     }),
-
+//validation for email
   email: Joi.string()
     .email({ tlds: { allow: false } })  // `allow: false` to skip domain validation
     .required()
@@ -23,6 +24,7 @@ const userValidationSchema = Joi.object({
       'any.required': 'Email is required'
     }),
 
+    //Validation for Phone
   phone: Joi.string()
     .pattern(/^[0-9]{10}$/)
     .required()
@@ -32,6 +34,7 @@ const userValidationSchema = Joi.object({
       'any.required': 'Phone number is required'
     }),
 
+    //validation for Password
   password: Joi.string()
     .min(8)
     .required()
