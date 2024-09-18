@@ -1,9 +1,30 @@
 
 import { main } from '../model/db-connect.js';
-import { movieModel,theatreModel } from '../model/admin-db.js';
+import { adminModel, movieModel,theatreModel } from '../model/admin-db.js';
 main().catch(err => console.error('Database connection error:', err))//main is the function for connecting with database
 import {handleDeletion,handleNewMovie,handleAdminLogin,handleTheatreAdd,handleMovieEdit,handleSelectedMovieRequest,handleShows,handleShowRequest} from '../Repo/admin-repo.js'
+import bcrypt from 'bcrypt'
+const saltRounds=10
 
+export const createAdmin=async(req,res)=>
+{
+    const{email,password}=req.body
+    bcrypt.hash(password, saltRounds, async (err, hash) => {
+        if (err) {
+            console.log("Error hashing password");
+            return res.status(500).json({ message: "Error hashing password" });
+        }
+        try {
+            await adminModel.create({
+                email,
+                password: hash//inserting hashed password to db
+            })
+            }catch(error)
+            {
+                console.log(error)
+            }
+    
+})   }
 
 //Function for admin login
 export const adminLogin = async (req, res) => {

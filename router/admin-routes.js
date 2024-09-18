@@ -5,7 +5,7 @@ import multer from 'multer';
 //const path = require('path');
 import path from 'path'
 import {verifyToken} from '../utils/verifyToken.js'
-import { adminLogin,addMovies,getMovies,addTheatre,getTheatre,editMovies,getSelectedMovies,addShows,getShows,deleteShows} from '../control/admin-control.js';
+import { adminLogin,addMovies,getMovies,addTheatre,getTheatre,editMovies,getSelectedMovies,addShows,getShows,deleteShows, createAdmin} from '../control/admin-control.js';
 
 // Configure Multer storage
 const storage = multer.diskStorage({
@@ -22,6 +22,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Routes for handling various admin functions
+adminrouter.route('/createadmin').post(createAdmin);
 adminrouter.route('/login').post(adminLogin)
 //Route for handling movies
 adminrouter.route('/addmovies').post(verifyToken('admin'),upload.fields([{ name: 'poster', maxCount: 1 },{ name: 'actor_image', maxCount: 1 },{ name: 'actress_image', maxCount: 1 }]),addMovies);

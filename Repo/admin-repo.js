@@ -1,16 +1,19 @@
 
 import { createToken } from '../utils/manage-token.js';
 import {movieModel,theatreModel,showModel, adminModel} from '../model/admin-db.js'
+import bcrypt from 'bcrypt'
+const saltRounds=10
 
 //Function for logging in admin
 
 export const handleAdminLogin=async(req,res)=>
 {
-  const { email, password } = req.body;
+  const { email,password} = req.body;
   try {
-    const data = await adminModel.find({ email: email, password: password });
-
-    if (data.length > 0) {
+    const data = await adminModel.find({ email: email});
+    const result= await bcrypt.compare(password,data[0].password)
+    console.log(result)
+    if (result > 0) {
       const token=createToken(data,'admin')
 
       res.status(200).json({message:"Loginned",token:token});

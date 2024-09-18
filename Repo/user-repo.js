@@ -268,7 +268,7 @@ export async function handleAllTheatreRequest(req, res) {
 export async function  handleTickets(req,res) {
     try {
         const{id}=req.body
-        console.log("From body",id)
+        //console.log("From body",id)
         const data=await bookingModel.find({_id:id})
             .populate('showid','timing')
             .populate('theatreid','theatrename ticketprice')
