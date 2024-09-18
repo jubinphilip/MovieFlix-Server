@@ -20,5 +20,6 @@ const bookingSchema=new mongoose.Schema({
     userid:{ type: mongoose.Schema.Types.ObjectId, ref: 'user'},
     amount:String
 },{timestamps:true})
+
 export const bookingModel=new mongoose.model('Bookings',bookingSchema)
 
