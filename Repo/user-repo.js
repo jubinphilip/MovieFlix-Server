@@ -167,7 +167,7 @@ export async function handleBookings(req, res) {
 
     try {
         console.log(`Number of booked seats: ${bookedSeats.length}`);
-
+//creating new booking from user
         const newBooking= await bookingModel.create({
             showid,
             booked_date,
