@@ -9,6 +9,7 @@ const userSchema=new mongoose.Schema({
     phone:String,
     password:String
 }, { timestamps: true } )
+
 export const userModel=new mongoose.model('user',userSchema)
 
 const bookingSchema=new mongoose.Schema({
