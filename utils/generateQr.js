@@ -29,6 +29,7 @@ export const generateQrcode = async (bookingdetails) => {
     Seats: bookingdetails.bookedSeats,
   };
 
+  //Message for user
   const message = `Hi ${bookingdetails.userid.username},
 
 Your movie booking is confirmed! 🎉
