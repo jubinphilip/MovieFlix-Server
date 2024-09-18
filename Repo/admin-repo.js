@@ -1,4 +1,3 @@
-
 import { createToken } from '../utils/manage-token.js';
 import {movieModel,theatreModel,showModel, adminModel} from '../model/admin-db.js'
 import bcrypt from 'bcrypt'
