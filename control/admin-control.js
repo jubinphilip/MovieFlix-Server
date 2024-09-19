@@ -28,7 +28,7 @@ export const createAdmin=async(req,res)=>
 
 //Function for admin login
 export const adminLogin = async (req, res) => {
-        handleAdminLogin(req,res)
+       await handleAdminLogin(req,res)
   };
   
   //Function for adding new movies 
@@ -52,7 +52,7 @@ catch(err)
 
 //function for adding theatre
 export const addTheatre=async(req,res)=>{
-    handleTheatreAdd(req,res)
+    await handleTheatreAdd(req,res)
 }
 
 //function for getting the theatre list
@@ -71,26 +71,26 @@ catch(error)
 
 //Function for editing the movies
 export const editMovies=async(req,res)=>{
-   handleMovieEdit(req,res)
+  await handleMovieEdit(req,res)
 }
 
 //function for selecting the theatre and its running movies
 export const getSelectedMovies=async(req,res)=>{
     const{id}=req.params;
     console.log(id)
-    handleSelectedMovieRequest(id,res)
+    await handleSelectedMovieRequest(id,res)
 }
 
 //Function for adding shows
 export const addShows=async(req,res)=>
 {
-   handleShows(req,res)
+    await handleShows(req,res)
 }
 
 
 //function for displaying the shows to user
 export const getShows=async(req,res)=>{
-   handleShowRequest(req,res)
+   await handleShowRequest(req,res)
 }
 
 //function for deleting a movie
@@ -98,7 +98,7 @@ export const deleteShows=async(req,res)=>{
 try{
     const id=req.params.id
     console.log(id)
-    handleDeletion(id,res)
+  await  handleDeletion(id,res)
 }
 catch(error)
 {

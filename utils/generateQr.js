@@ -78,8 +78,8 @@ try {
   const response = await client.messages.create({
     body: fullMessage,
     from: 'whatsapp:' + process.env.Whatsapp_No,  // This is a Twilio WhatsApp sandbox number
-    to: `whatsapp:+917025889751`,
-    mediaUrl: [qrCodeUrl],  // Properly formatted WhatsApp number
+    to: `whatsapp:+917025889751`,// Properly formatted WhatsApp number
+    mediaUrl: [qrCodeUrl],//url of the qr code that is generated  
   });
   console.log("Message sent, SID:", response.sid);
 } catch (error) {
