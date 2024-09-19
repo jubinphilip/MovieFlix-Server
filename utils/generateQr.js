@@ -73,15 +73,13 @@ Thank you for booking with us! Enjoy your movie! 🎬`;
 
 // Function to send WhatsApp message
 async function sendWhatsappMessage(to, message, qrCodeUrl) {
-  const fullMessage = `${message}
-
-QR Code: ${qrCodeUrl}`;
-
+  const fullMessage =message
 try {
   const response = await client.messages.create({
     body: fullMessage,
     from: 'whatsapp:' + process.env.Whatsapp_No,  // This is a Twilio WhatsApp sandbox number
-    to: `whatsapp:+917025889751`,  // Properly formatted WhatsApp number
+    to: `whatsapp:+917025889751`,
+    mediaUrl: [qrCodeUrl],  // Properly formatted WhatsApp number
   });
   console.log("Message sent, SID:", response.sid);
 } catch (error) {

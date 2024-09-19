@@ -68,7 +68,7 @@ try{
           production
       }
   })
-  res.status(200).json({message:"Movie Updated"})
+  res.status(200).json({message:"Movie inserted"})
     
 }
 catch(error){
