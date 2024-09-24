@@ -41,6 +41,7 @@ export const theatreModel=new mongoose.model('theatres',theatreSchema)
 const showSchema=new mongoose.Schema({
     theatre_id:{type:mongoose.Schema.Types.ObjectId,ref:"theatres"},
     seats:String,
+    remaining_seats:String,
     movie_id:{type:mongoose.Schema.Types.ObjectId,ref:"movies"},
     from_date:Date,
     to_date:Date,

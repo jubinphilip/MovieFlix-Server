@@ -167,6 +167,7 @@ export async function handleBookings(req, res) {
 
     try {
         console.log(`Number of booked seats: ${bookedSeats.length}`);
+
 //creating new booking from user
         const newBooking= await bookingModel.create({
             showid,
@@ -190,6 +191,8 @@ export async function handleBookings(req, res) {
             return res.status(400).json({ message: 'Not enough seats available' });
         }
         console.log("Booking  id",newBooking._id)
+        show.remaining_seats-=bookedSeats.length
+        await show.save()
         res.status(200).json({ message: 'Booking successful',bookingId:newBooking._id});
         
     } catch (error) {

@@ -1,14 +1,13 @@
-
 import { main } from '../model/db-connect.js';
-import { adminModel, movieModel,theatreModel } from '../model/admin-db.js';
-main().catch(err => console.error('Database connection error:', err))//main is the function for connecting with database
-import {handleDeletion,handleNewMovie,handleAdminLogin,handleTheatreAdd,handleMovieEdit,handleSelectedMovieRequest,handleShows,handleShowRequest} from '../Repo/admin-repo.js'
-import bcrypt from 'bcrypt'
-const saltRounds=10
+import { adminModel, movieModel, theatreModel } from '../model/admin-db.js';
+main().catch(err => console.error('Database connection error:', err)); // Main function for connecting to database
+import { handleDeletion, handleNewMovie, handleAdminLogin, handleTheatreAdd, handleMovieEdit, handleSelectedMovieRequest, handleShows, handleShowRequest, handleUpdateMovies } from '../Repo/admin-repo.js';
+import bcrypt from 'bcrypt';
+const saltRounds = 10;
 
-export const createAdmin=async(req,res)=>
-{
-    const{email,password}=req.body
+// Function for creating an admin
+export const createAdmin = async (req, res) => {
+    const { email, password } = req.body;
     bcrypt.hash(password, saltRounds, async (err, hash) => {
         if (err) {
             console.log("Error hashing password");
@@ -17,91 +16,91 @@ export const createAdmin=async(req,res)=>
         try {
             await adminModel.create({
                 email,
-                password: hash//inserting hashed password to db
-            })
-            }catch(error)
-            {
-                console.log(error)
-            }
-    
-})   }
+                password: hash // Inserting hashed password into db
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    });
+};
 
-//Function for admin login
+// Function for admin login
 export const adminLogin = async (req, res) => {
-       await handleAdminLogin(req,res)
-  };
-  
-  //Function for adding new movies 
-export const addMovies=async (req,res)=>{
-   handleNewMovie(req,res)
-}
+    const response = await handleAdminLogin(req);
+    res.status(response.statusCode).json(response.body); // Send response here
+};
 
-//function for getting movies
-export const getMovies=async(req,res)=>{
-    try{
-    const movies=await movieModel.find({}).then((data)=>{
-        res.status(200).json(data)
-        
-    })
-}
-catch(err)
-{
-    console.log(err)
-}
-}
+// Function for adding new movies
+export const addMovies = async (req, res) => {
+    const response = await handleNewMovie(req);
+    res.status(response.statusCode).json(response.body); // Send response here
+};
 
-//function for adding theatre
-export const addTheatre=async(req,res)=>{
-    await handleTheatreAdd(req,res)
-}
+// Function for getting all movies
+export const getMovies = async (req, res) => {
+    try {
+        const movies = await movieModel.find({});
+        res.status(200).json(movies);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Failed to retrieve movies' });
+    }
+};
 
-//function for getting the theatre list
-export const getTheatre=async(req,res)=>{
-    try
-    {
-    const movies=await theatreModel.find({}).then((data)=>{
-        res.json(data)
-    })
-}
-catch(error)
-{
-    console.log(error)
-}
-}
+// Function for updating a movie
+export const updateMovies = async (req, res) => {
+    const response = await handleUpdateMovies(req);
+    res.status(response.statusCode).json(response.body);
+};
 
-//Function for editing the movies
-export const editMovies=async(req,res)=>{
-  await handleMovieEdit(req,res)
-}
+// Function for adding theatre
+export const addTheatre = async (req, res) => {
+    const response = await handleTheatreAdd(req);
+    res.status(response.statusCode).json(response.body);
+};
 
-//function for selecting the theatre and its running movies
-export const getSelectedMovies=async(req,res)=>{
-    const{id}=req.params;
-    console.log(id)
-    await handleSelectedMovieRequest(id,res)
-}
+// Function for getting the theatre list
+export const getTheatre = async (req, res) => {
+    try {
+        const theatres = await theatreModel.find({});
+        res.status(200).json(theatres);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Failed to retrieve theatres" });
+    }
+};
 
-//Function for adding shows
-export const addShows=async(req,res)=>
-{
-    await handleShows(req,res)
-}
+// Function for editing movies in a theatre
+export const editMovies = async (req, res) => {
+    const response = await handleMovieEdit(req);
+    res.status(response.statusCode).json(response.body);
+};
 
+// Function for getting selected movie list
+export const getSelectedMovies = async (req, res) => {
+    const { id } = req.params;
+    console.log(id);
+    const response = await handleSelectedMovieRequest(id);
+    res.status(response.statusCode).json(response.body);
+};
 
-//function for displaying the shows to user
-export const getShows=async(req,res)=>{
-   await handleShowRequest(req,res)
-}
+// Function for adding shows
+export const addShows = async (req, res) => {
+    const response = await handleShows(req);
+    res.status(response.statusCode).json(response.body);
+};
 
-//function for deleting a movie
-export const deleteShows=async(req,res)=>{
-try{
-    const id=req.params.id
-    console.log(id)
-  await  handleDeletion(id,res)
-}
-catch(error)
-{
-    console.log(error)
-}
-}
+// Function for getting shows
+export const getShows = async (req, res) => {
+    console.log(req.body);
+    const response = await handleShowRequest(req);
+    res.status(response.statusCode).json(response.body);
+};
+
+// Function for deleting a show
+export const deleteShows = async (req, res) => {
+    const { id } = req.params;
+    console.log(id);
+    const response = await handleDeletion(id);
+    res.status(response.statusCode).json(response.body);
+};
