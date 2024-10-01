@@ -57,7 +57,7 @@ export const generateOtp=async(req,res)=>{//Function which initialises otp sendi
     console.log(otpCache)
     
     await sendOtp(globalEmail,otp)//sending email and generated otp to sendotp function
-    res.cookie('otpCache',JSON.stringify(otpCache),{maxAge:30000,httpOnly:true})//Stores email and otp in a cookie
+    res.cookie('otpCache',JSON.stringify(otpCache),{maxAge:500000,httpOnly:true})//Stores email and otp in a cookie
     console.log("OTP sent")
     }
     catch(error){
