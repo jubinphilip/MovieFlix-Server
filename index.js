@@ -7,7 +7,7 @@ dotenv.config();
 
 const allowedOrigins = [
   'https://movieflix-bay-five.vercel.app',
-  'https://movieflix-axheax1ic-jubinphilips-projects.vercel.app/'
+  'https://movieflix-axheax1ic-jubinphilips-projects.vercel.app'
 ];
 
 const corsOptions = {
