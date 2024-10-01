@@ -5,9 +5,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 import cors from 'cors'
 const corsOptions = {
-    origin: 'https://movieflix-bay-five.vercel.app', 
+    origin: 'https://movieflix-bay-five.vercel.app/', 
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
-    credentials: true,
+   
   };
   
   app.use(cors(corsOptions));
