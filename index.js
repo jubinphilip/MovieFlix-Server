@@ -6,7 +6,7 @@ const app = express();
 dotenv.config();
 
 const allowedOrigins = [
-  'https://movie-flix-client-beta.vercel.app/',
+  'https://movie-flix-client-beta.vercel.app',
   'https://movie-flix-client-6yahl6odb-jubinphilips-projects.vercel.app'
 ];
 
