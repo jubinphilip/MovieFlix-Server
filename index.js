@@ -5,12 +5,24 @@ import cors from 'cors';
 const app = express();
 dotenv.config();
 
+const allowedOrigins = [
+  'https://movieflix-bay-five.vercel.app',
+  'https://movieflix-jubinphilips-projects.vercel.app'
+];
+
 const corsOptions = {
-    origin: 'https://movieflix-bay-five.vercel.app', 
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  origin: (origin, callback) => {
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+          callback(null, true);
+      } else {
+          callback(new Error('Not allowed by CORS'));
+      }
+  },
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 };
 
-app.use(cors(corsOptions)); 
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
