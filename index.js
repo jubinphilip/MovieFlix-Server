@@ -6,7 +6,7 @@ const app = express();
 dotenv.config();
 
 const allowedOrigins = [
-  'https://movieflix-bay-five.vercel.app',
+  'https://movie-flix-client-beta.vercel.app/',
   'https://movieflix-axheax1ic-jubinphilips-projects.vercel.app'
 ];
 
@@ -19,6 +19,7 @@ const corsOptions = {
       }
   },
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true 
 };
 
 app.use(cors(corsOptions));
