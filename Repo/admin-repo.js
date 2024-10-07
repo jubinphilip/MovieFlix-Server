@@ -107,10 +107,11 @@ export const handleSelectedMovieRequest = async (id) => {
 
 // Function for adding shows
 export const handleShows = async (req) => {
+ //   console.log("handleShows",req.body)
     const { movie_id, theatre_id, seats, timing, from_date, to_date } = req.body;
     try {
       await showModel.create({
-        movie: movie_id,
+        movie_id,
         theatre: theatre_id,
         seats,
         timing,
@@ -131,7 +132,7 @@ export const handleShowRequest = async (req) => {
       .populate('movie_id', 'title poster')
       .populate('theatre_id', 'theatrename');
     
-    console.log("Shows Array", shows);
+   // console.log("Shows Array", shows);
     // Return success response
     return { statusCode: 200, body: shows };
   } catch (err) {

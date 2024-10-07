@@ -26,6 +26,7 @@ export const createAdmin = async (req, res) => {
 
 // Function for admin login
 export const adminLogin = async (req, res) => {
+    console.log(req.body)
     const response = await handleAdminLogin(req);
     res.status(response.statusCode).json(response.body); // Send response here
 };
@@ -92,7 +93,7 @@ export const addShows = async (req, res) => {
 
 // Function for getting shows
 export const getShows = async (req, res) => {
-    console.log(req.body);
+   // console.log(req.body);
     const response = await handleShowRequest(req);
     res.status(response.statusCode).json(response.body);
 };
