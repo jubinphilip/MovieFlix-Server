@@ -73,7 +73,7 @@ export const handleUserLogin=async(req,res)=>{
         }
         else
         {
-            console.log("Login failed")
+            res.json({status:0,message:"No user Found"})
         }
     }
     else
