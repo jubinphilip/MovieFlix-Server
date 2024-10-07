@@ -3,6 +3,7 @@ import { adminModel, movieModel, theatreModel } from '../model/admin-db.js';
 main().catch(err => console.error('Database connection error:', err)); // Main function for connecting to database
 import { handleDeletion, handleNewMovie, handleAdminLogin, handleTheatreAdd, handleMovieEdit, handleSelectedMovieRequest, handleShows, handleShowRequest, handleUpdateMovies } from '../Repo/admin-repo.js';
 import bcrypt from 'bcrypt';
+import {movieValidationSchema,theatreSchema} from '../Request/manage-admin-request.js';
 const saltRounds = 10;
 
 // Function for creating an admin
@@ -33,6 +34,13 @@ export const adminLogin = async (req, res) => {
 
 // Function for adding new movies
 export const addMovies = async (req, res) => {
+    const { title, description, language, genre, rating, summary, actor, actress, director, production } = req.body;
+    const { error } = movieValidationSchema.validate({ title, description, language, genre, rating, summary, actor, actress, director, production });
+    if (error) {
+        console.log(error)
+        return res.status(400).json({ message: error.details[0].message });
+    }
+
     const response = await handleNewMovie(req);
     res.status(response.statusCode).json(response.body); // Send response here
 };
@@ -56,6 +64,12 @@ export const updateMovies = async (req, res) => {
 
 // Function for adding theatre
 export const addTheatre = async (req, res) => {
+    const { theatrename, theatreloc, ticketprice, seats } = req.body;
+    const { error } = theatreSchema.validate({ theatrename, theatreloc, ticketprice,seats})
+    if (error) {
+        console.log(error)
+        return res.status(400).json({ message: error.details[0].message });
+    }
     const response = await handleTheatreAdd(req);
     res.status(response.statusCode).json(response.body);
 };

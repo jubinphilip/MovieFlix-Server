@@ -192,6 +192,7 @@ export async function handleBookings(req, res) {
         }
         console.log("Booking  id",newBooking._id)
         show.remaining_seats-=bookedSeats.length
+        console.log(show.remaining_seats)
         await show.save()
         res.status(200).json({ message: 'Booking successful',bookingId:newBooking._id});
         

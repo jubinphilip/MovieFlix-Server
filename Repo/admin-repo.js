@@ -109,15 +109,18 @@ export const handleSelectedMovieRequest = async (id) => {
 export const handleShows = async (req) => {
  //   console.log("handleShows",req.body)
     const { movie_id, theatre_id, seats, timing, from_date, to_date } = req.body;
+    console.log(req.body)
+    
     try {
-      await showModel.create({
+       await showModel.create({
         movie_id,
-        theatre: theatre_id,
+        theatre_id,
         seats,
+        remaining_seats:seats,
         timing,
         from_date,
         to_date
-    });
+    }); 
     return { statusCode: 200, body: { message: "Show added successfully" } };
 } catch (error) {
     return { statusCode: 500, body: { message: "Failed to add show", error } };
