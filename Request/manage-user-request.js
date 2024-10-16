@@ -2,18 +2,19 @@ import Joi from 'joi';
 
 const userValidationSchema = Joi.object({
   //Validation for username
-const usernameSchema = Joi.string()
-    .pattern(/^[a-zA-Z\s]+$/) 
+username: Joi.string()
+    .pattern(/^[a-zA-Z0-9\s]+$/) 
     .min(3)
     .max(30)
     .required()
     .messages({
-      'string.pattern.base': 'Username should contain only letters and spaces, no numbers allowed',
+      'string.pattern.base': 'Username should only contain letters, numbers, and spaces',
       'string.empty': 'Username cannot be empty',
       'string.min': 'Username should have at least 3 characters',
       'string.max': 'Username should have at most 30 characters',
       'any.required': 'Username is required'
-    });
+    }),
+
 
 //validation for email
   email: Joi.string()
